@@ -1,0 +1,30 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>自动晾衣架</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="iot.css" />
+    <script src="jquery-1.4.2.min.js"></script>
+    <script src="iot.js"></script>
+</head>
+<body id="dryingrack">
+<div id="status">
+    <a href="#" id="sunny" class="Status" title="晴天"></a>
+    <a href="#" id="rainy" class="Status" title="下雨"></a>
+    <a href="#" id="cloudy" class="Status" title="阴天"></a>
+    <a href="#" id="rackstatus" class="Status" status = "out" title="晾衣架伸出"></a>	    
+  
+</div>
+<div id="actions">
+    <a href="#" id="pullout" class="Action" title="伸出"></a>
+    <a href="#" id="pullin" class="Action" title="收回"></a>	
+ </div>
+<div id="setup">
+    <div class="Setup" >自动：<input id="automatic" class="Setup" type="checkbox" checked>
+    </div>
+    <a href="#" id="timer" class="Setup" title="定时"></a>
+</div>
+</body>
+</html>
