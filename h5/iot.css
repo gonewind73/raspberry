@@ -43,28 +43,33 @@ a, a:link, a:visited {
 }
 
 
-
 .Action {
 	position: absolute;
 	-moz-border-radius: 10px;
-	-webkit-border-radius: 250px;
+	-webkit-border-radius: 200px;
 	display: block;
-	background-image: url(../h5/pull.jpg);
-	width: 480px;
-	height: 480px;
-	transform: scale(0.2, 0.2);
+	background-image: url(../h5/sign.jpg);
+	width: 40px;
+	height: 40px;
+	top:30%;
+	transform: scale(1.75);
 }
 
 .Action#pullout {
-	left: -25%;
-	background-position: 480px 0px;
+	left: 65%;
+	background-position: 110px 194px;
 }
 
 
 .Action#pullin {
-	left: 5%;
+	left: 25%;
+	background-position: 174px 194px;
 }
 
+.Action#stop {
+	left: 45%;
+	background-position: 240px 194px;
+}
 
 #status {
 	position: absolute;
@@ -124,6 +129,12 @@ a, a:link, a:visited {
 .Status#rackstatus[status=out] {
 	width:900px;
 	left:-140%;
+	background-position: -550px 550px;
+}
+
+.Status#rackstatus[status=middle] {
+	width:650px;
+	left:-100%;
 	background-position: -550px 550px;
 }
 

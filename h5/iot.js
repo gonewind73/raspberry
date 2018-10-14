@@ -16,7 +16,8 @@ function init() {
     IOT.config.bAutomatic = false;
     IOT.config.out_time = 10;
 	IOT.config.in_time = 15;
-	setInterval(getStatus,60000);
+	getStatus();
+	setInterval(getStatus,3000);
 }
     
 
@@ -92,6 +93,7 @@ function updateStatus(data){
 
 	$(".Action").show()
 	$("#rackstatus").show()
+	$("#rackstatus").attr("status","middle")
 	if(data.innermost){
 		$("#rackstatus").attr("status","in")
 		$("#pullin").hide()
@@ -100,8 +102,12 @@ function updateStatus(data){
 		$("#rackstatus").attr("status","out")
 		$("#pullout").hide()
 	} 
+	if(data.pullstatus==0){
+		$("#stop").hide()
+	} 
 
-	if(data.automatic) $("#automatic").attr("checked",true)
+	$("#automatic").attr("checked",data.automatic)
+
 }
 
 

@@ -9,16 +9,16 @@ import json
 class DryingRack(object):
     LightSense = 12
     WaterSense = 16
-    HoerSense1 = 18   #in position
-    HoerSense2 = 22    #out position
-    PowerControl1 = 8
-    PowerControl2 = 10
+    HoerSense1 = 10   #in position
+    HoerSense2 = 8    #out position
+    PowerControl1 = 18
+    PowerControl2 = 22
 
     def __init__(self):
-        self.automatic = True
+        self.automatic = False
         self.pull_status = 0 # 0 stop 1 pullouting 2 pullining 
         GPIO_init()
-        self.process_timer = Timer(10,self.timer)
+        self.process_timer = Timer(1,self.timer)
         self.process_timer.start()
         pass
 
@@ -74,7 +74,7 @@ class DryingRack(object):
         status = GPIO_read()
         print time.asctime(),"status",status
         self.process(status)
-        self.process_timer = Timer(10,self.timer)
+        self.process_timer = Timer(1,self.timer)
         self.process_timer.start()
         
         
@@ -82,10 +82,10 @@ class DryingRack(object):
 
 LightSense = 12
 WaterSense = 16
-HoerSense1 = 18   #in position
-HoerSense2 = 22    #out position
-PowerControl1 = 8
-PowerControl2 = 10
+HoerSense1 = 10   #in position
+HoerSense2 = 8    #out position
+PowerControl1 = 18
+PowerControl2 = 22
 
 automatic = False
 pull_state = 0  # 0 stop 1 pullouting  2 pullining
@@ -100,6 +100,7 @@ def GPIO_init():
     GPIO.setup(PowerControl2, GPIO.OUT)
     # set RPi board pin PowerControl1 high
     GPIO.output(PowerControl1, GPIO.HIGH)
+    GPIO.output(PowerControl2, GPIO.HIGH)
     # set up GPIO input with pull-up control
     # (pull_up_down be PUD_OFF, PUD_UP or PUD_DOWN, default PUD_OFF)
     GPIO.setup(LightSense, GPIO.IN, pull_up_down=GPIO.PUD_UP)
@@ -147,24 +148,24 @@ def GPIO_read():
 
 def pullout():
     global pull_state
-    GPIO.output(PowerControl1, GPIO.HIGH)
-    GPIO.output(PowerControl2, GPIO.LOW)
+    GPIO.output(PowerControl1, GPIO.LOW)
+    GPIO.output(PowerControl2, GPIO.HIGH)
     pull_state = 1
     print "start to pullout..."
     return 1
 
 def pullin():
     global pull_state
-    GPIO.output(PowerControl1, GPIO.LOW)
-    GPIO.output(PowerControl2, GPIO.HIGH)
+    GPIO.output(PowerControl1, GPIO.HIGH)
+    GPIO.output(PowerControl2, GPIO.LOW)
     pull_state = 2
     print "start to pullin..."
     return 2
 
 def stop():
     global pull_state
-    GPIO.output(PowerControl1, GPIO.LOW)
-    GPIO.output(PowerControl2, GPIO.LOW)
+    GPIO.output(PowerControl1, GPIO.HIGH)
+    GPIO.output(PowerControl2, GPIO.HIGH)
     pull_state = 0
     print "pull stop."
     return 0
@@ -229,7 +230,7 @@ def ioread_thread(my_account,quit):
             last_state = state
             print state2str(state)
             send_message(device_queue,state2str(state))
-        time.sleep(1)
+        time.sleep(0.1)
     GPIO_clean()
 
 
